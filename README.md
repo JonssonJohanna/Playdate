@@ -9,8 +9,6 @@ Text about the project and which JavaScript library you're using. This would als
 
 Add the installation instructions.
 
-# Test
-
 # Changelog
 
 -   [#1 - Add a link to each pull request with a descriptive line.](#1)
