@@ -13,6 +13,7 @@ Add the installation instructions.
 
 -   [#1 - Add a link to each pull request with a descriptive line.](#1)
 -   https://github.com/JonssonJohanna/Playdate/pulls
+-   https://github.com/JonssonJohanna/Playdate/pull/6#pullrequestreview-964451305
 
 # Code Review
 
