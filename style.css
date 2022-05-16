@@ -3,10 +3,30 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #27fa07;
   display: none;
 }
-* {
-  padding: 0;
-  margin: 0;
+
+.title {
+  font-family: 'Rubik Glitch', 'cursive';
+  font-size: 48px;
+  color: #2a3c2a;
+}
+
+body {
+  margin: Opx;
+  padding: Opx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: black 20px 10px 50px;
+  border-radius: 2px;
 }
