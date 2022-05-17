@@ -1,16 +1,10 @@
 import './style.css';
 import * as PIXI from 'pixi.js';
-
-class Snake {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-}
+import { Snake } from './source/snake.js';
+import { gameOverStyle } from './source/style.js';
+import { eatingSound, gameOverSound } from './source/audio.js';
 
 const Application = PIXI.Application;
-// let keys = {};
-// let keysDiv;
 
 const app = new Application({
   width: 400,
@@ -21,41 +15,22 @@ const app = new Application({
 
 app.renderer.backgroundColor = 0x2a3c2a;
 
-// app.renderer.resize(window.innerWidth, window.innerHeight);
-
-// app.renderer.view.style.position = 'absolute';
-
 document.body.appendChild(app.view);
-// console.log(app.view.width, app.view.height);
+console.log(app.view.width, app.view.height);
 
+//This is wehere we create out objects
 const Graphics = PIXI.Graphics;
-const rectangle = new Graphics();
-const rect = new Graphics();
-const foodRectangle = new Graphics();
-// rect.beginFill(0xffffff).drawRect(200, 150, 20, 20).endFill();
-// app.stage.addChild(rect);
-
-// Text Object
-const style = new PIXI.TextStyle({
-  fontFamily: 'Montserrat',
-  fontSize: 48,
-  fill: 'red',
-  stroke: '#ffffff',
-  strokeThickness: 4,
-  dropShadow: true,
-  dropShadowDistance: 5,
-  dropShadowAngle: Math.PI / 2,
-  dropShadowBlur: 2,
-  dropShadowColor: '#000000',
-});
+const gameBoard = new Graphics();
+const snakeHead = new Graphics();
+const snakeFood = new Graphics();
 
 // Showing the Text
-const myText = new PIXI.Text('Game Over', style);
+const myText = new PIXI.Text('Game Over', gameOverStyle);
 myText.anchor.set(-0.3, -1.2);
-app.stage.addChild(myText);
+// app.stage.addChild(myText);
 
-// Test
-let speed = 2;
+// Creating grid
+let speed = 3;
 let rectanglesCount = 20;
 let rectangleSize = app.view.width / rectanglesCount - 2;
 let rectangleX = 10;
@@ -64,38 +39,38 @@ let rectangleY = 10;
 let speedX = 0;
 let speedY = 0;
 
-let foodRectangleX = 5;
-let foodRectangleY = 5;
+let snakeFoodX = 5;
+let snakeFoodY = 5;
 
+// Snake length
 const snakeElements = [];
-let rectanglesLength = 2;
+let snakeLength = 1;
 
 //Game Loop
 function updateScreen() {
   clearScreen();
   changeRectanglePosition();
-  rect.clear();
-  foodRectangle.clear();
-
+  snakeHead.clear(); // clears the screen when the snake moves across the screen
+  snakeFood.clear();
   checkFoodColision();
   renderSnakeFood();
   renderSnakeBody();
   setTimeout(updateScreen, 1000 / speed);
 }
-
+//
 function clearScreen() {
-  rectangle
+  gameBoard
     .beginFill(0x2a3c2a)
     .drawRect(0, 0, app.view.width, app.view.height)
     .endFill();
 
-  app.stage.addChild(rectangle);
-  // rectangle.addChild(myText);
+  app.stage.addChild(gameBoard);
+  // gameBoard.addChild(myText);
 }
 
-// Drawing a small rectangle
+// Drawing the snake
 function renderSnakeBody() {
-  rect
+  snakeHead
     .beginFill(0xffff00)
     .drawRect(
       rectangleX * rectanglesCount,
@@ -105,11 +80,9 @@ function renderSnakeBody() {
     )
     .endFill();
 
-  rectangle.addChild(rect);
-
   for (let i = 0; i < snakeElements.length; i++) {
     let element = snakeElements[i];
-    rect
+    snakeHead
       .beginFill(0xffff00)
       .drawRect(
         element.x * rectanglesCount,
@@ -118,27 +91,27 @@ function renderSnakeBody() {
         rectangleSize
       )
       .endFill();
-    rectangle.addChild(rect);
+    gameBoard.addChild(snakeHead);
   }
   snakeElements.push(new Snake(rectangleX, rectangleY));
 
-  if (snakeElements.length > rectanglesLength) {
+  if (snakeElements.length > snakeLength) {
     snakeElements.shift();
   }
 }
 
 function renderSnakeFood() {
-  foodRectangle
+  snakeFood
     .beginFill(0x27fa07)
     .drawRect(
-      foodRectangleX * rectanglesCount,
-      foodRectangleY * rectanglesCount,
+      snakeFoodX * rectanglesCount,
+      snakeFoodY * rectanglesCount,
       rectangleSize,
       rectangleSize
     )
     .endFill();
 
-  rectangle.addChild(foodRectangle);
+  gameBoard.addChild(snakeFood);
 }
 
 function changeRectanglePosition() {
@@ -147,36 +120,41 @@ function changeRectanglePosition() {
 }
 
 function checkFoodColision() {
-  if (foodRectangleX === rectangleX && foodRectangleY == rectangleY) {
-    foodRectangleX = Math.floor(Math.random() * rectanglesCount);
-    foodRectangleY = Math.floor(Math.random() * rectanglesCount);
-    rectanglesLength++;
-    // score++;
-    // gulpSound.play();
+  if (snakeFoodX === rectangleX && snakeFoodY == rectangleY) {
+    snakeFoodX = Math.floor(Math.random() * rectanglesCount);
+    snakeFoodY = Math.floor(Math.random() * rectanglesCount);
+    snakeLength++;
+
+    //eating audio when check for collision
+    eatingSound.play();
+    setTimeout(function () {
+      eatingSound.play();
+
+      setTimeout(function () {
+        eatingSound.pause();
+        eatingSound.currentTime = 0;
+      }, 600);
+    });
   }
 }
 
 document.body.addEventListener('keydown', function (e) {
   if (e.key === 'ArrowUp') {
-    // rect.y -= 18;
     if (speedY == 1) return;
     speedY = -1;
     speedX = 0;
   }
   if (e.key === 'ArrowDown') {
-    // rect.y += 18
     if (speedY == -1) return;
     speedY = 1;
     speedX = 0;
   }
   if (e.key === 'ArrowLeft') {
-    // rect.x -= 18
     if (speedX == 1) return;
     speedY = 0;
     speedX = -1;
   }
   if (e.key === 'ArrowRight') {
-    // rect.x += 18
     if (speedX == -1) return;
     speedY = 0;
     speedX = 1;
