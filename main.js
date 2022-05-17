@@ -4,7 +4,7 @@ import { Snake } from './source/snake.js';
 import { gameOverStyle } from './source/style.js';
 import { eatingSound, gameOverSound } from './source/audio.js';
 
-const Application = PIXI.Application;
+const { Application, Graphics, Text } = PIXI;
 
 const app = new Application({
   width: 400,
@@ -19,13 +19,12 @@ document.body.appendChild(app.view);
 console.log(app.view.width, app.view.height);
 
 //This is wehere we create out objects
-const Graphics = PIXI.Graphics;
 const gameBoard = new Graphics();
 const snakeHead = new Graphics();
 const snakeFood = new Graphics();
 
 // Showing the Text
-const myText = new PIXI.Text('Game Over', gameOverStyle);
+const myText = new Text('Game Over', gameOverStyle);
 myText.anchor.set(-0.3, -1.2);
 // app.stage.addChild(myText);
 
