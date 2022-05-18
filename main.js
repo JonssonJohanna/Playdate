@@ -3,6 +3,8 @@ import * as PIXI from 'pixi.js';
 import { Snake } from './source/snake.js';
 import { gameOverStyle } from './source/style.js';
 import { eatingSound, gameOverSound } from './source/audio.js';
+import { renderSnakeBody } from './source/functions';
+// import { rectangleX, rectangleY } from './source/variables';
 
 const { Application, Graphics, Text } = PIXI;
 
@@ -16,7 +18,7 @@ const app = new Application({
 app.renderer.backgroundColor = 0x2a3c2a;
 
 document.body.appendChild(app.view);
-console.log(app.view.width, app.view.height);
+// console.log(app.view.width, app.view.height);
 
 //This is wehere we create out objects
 const gameBoard = new Graphics();
@@ -49,11 +51,24 @@ let snakeLength = 1;
 function updateScreen() {
   clearScreen();
   changeRectanglePosition();
+  const gameOver = gameOverText();
+  if (gameOver) {
+    return;
+  }
   snakeHead.clear(); // clears the screen when the snake moves across the screen
   snakeFood.clear();
   checkFoodColision();
   renderSnakeFood();
-  renderSnakeBody();
+  renderSnakeBody(
+    snakeHead,
+    gameBoard,
+    rectangleX,
+    rectangleY,
+    rectanglesCount,
+    rectangleSize,
+    snakeElements,
+    snakeLength
+  );
   setTimeout(updateScreen, 1000 / speed);
 }
 //
@@ -65,38 +80,6 @@ function clearScreen() {
 
   app.stage.addChild(gameBoard);
   // gameBoard.addChild(myText);
-}
-
-// Drawing the snake
-function renderSnakeBody() {
-  snakeHead
-    .beginFill(0xffff00)
-    .drawRect(
-      rectangleX * rectanglesCount,
-      rectangleY * rectanglesCount,
-      rectangleSize,
-      rectangleSize
-    )
-    .endFill();
-
-  for (let i = 0; i < snakeElements.length; i++) {
-    let element = snakeElements[i];
-    snakeHead
-      .beginFill(0xffff00)
-      .drawRect(
-        element.x * rectanglesCount,
-        element.y * rectanglesCount,
-        rectangleSize,
-        rectangleSize
-      )
-      .endFill();
-    gameBoard.addChild(snakeHead);
-  }
-  snakeElements.push(new Snake(rectangleX, rectangleY));
-
-  if (snakeElements.length > snakeLength) {
-    snakeElements.shift();
-  }
 }
 
 function renderSnakeFood() {
@@ -134,6 +117,29 @@ function checkFoodColision() {
         eatingSound.currentTime = 0;
       }, 600);
     });
+  }
+}
+
+function gameOverText() {
+  let stopGame = false;
+  if (rectangleX === rectanglesCount) {
+    stopGame = true;
+    gameOverSound.play();
+  }
+  if (rectangleX < 0) {
+    stopGame = true;
+    gameOverSound.play();
+  }
+  if (rectangleY === rectanglesCount) {
+    stopGame = true;
+    gameOverSound.play();
+  }
+  if (rectangleY < 0) {
+    stopGame = true;
+    gameOverSound.play();
+  }
+  if (stopGame) {
+    return app.stage.addChild(myText);
   }
 }
 
