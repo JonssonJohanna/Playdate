@@ -10,7 +10,7 @@
 .title {
   font-family: 'Rubik Glitch', 'cursive';
   font-size: 48px;
-  color: #2a3c2a;
+  color: #5551ff;
 }
 
 body {
@@ -27,6 +27,6 @@ canvas {
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: black 20px 10px 50px;
+  box-shadow: #5551ff;
   border-radius: 2px;
 }
