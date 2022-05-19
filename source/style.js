@@ -18,3 +18,9 @@ export const replayText = new PIXI.TextStyle({
   fontSize: 30,
   fill: '#2a3c2a',
 });
+
+export const scoreStyle = new PIXI.TextStyle({
+  fontFamily: 'Montserrat',
+  fontSize: 10,
+  fill: 'white',
+});

@@ -1,9 +1,8 @@
-INSERT MANDATORY GIF
-<img src="https://media.giphy.com/media/Qv4OP7FP1rDbihJ8Wh/giphy-downsized-large.gif">
+<img src="https://media.giphy.com/media/TFMoOxjnAAMbm/giphy.gif" alt="Kid playing game on phone.">
 
-# Project Title
+# Playdate - Snake
 
-Text about the project and which JavaScript library you're using. This would also be a great place to link the game on Netlify.
+This is a group assignment, the purpose was to create a game or an experience using JavaScript. The project had to utilize a third-party WebGL framework, we chose to create Snake using Pixi.js.
 
 # Installation
 
