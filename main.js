@@ -1,7 +1,7 @@
 import './style.css';
 import * as PIXI from 'pixi.js';
 import { Snake } from './source/snake.js';
-import { gameOverStyle, replayText } from './source/style.js';
+import { gameOverStyle, replayText, scoreStyle } from './source/style.js';
 import { eatingSound, gameOverSound } from './source/audio.js';
 import { renderSnakeBody } from './source/functions';
 // import { rectangleX, rectangleY } from './source/variables';
@@ -71,6 +71,7 @@ function updateScreen() {
     snakeElements,
     snakeLength
   );
+  showScore();
   setTimeout(updateScreen, 1000 / speed);
 }
 
@@ -158,6 +159,11 @@ function checkStopGame() {
     return app.stage.addChild(button) && app.stage.addChild(myText);
   }
   return stopGame;
+}
+function showScore() {
+  const scoreText = new Text(`Score ${score}`, scoreStyle);
+  scoreText.anchor.set(-0.2, -0.2);
+  app.stage.addChild(scoreText);
 }
 
 // // button
