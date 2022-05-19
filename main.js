@@ -1,7 +1,7 @@
 import './style.css';
 import * as PIXI from 'pixi.js';
 import { Snake } from './source/snake.js';
-import { gameOverStyle } from './source/style.js';
+import { gameOverStyle, replayText } from './source/style.js';
 import { eatingSound, gameOverSound } from './source/audio.js';
 import { renderSnakeBody } from './source/functions';
 // import { rectangleX, rectangleY } from './source/variables';
@@ -24,6 +24,7 @@ document.body.appendChild(app.view);
 const gameBoard = new Graphics();
 const snakeHead = new Graphics();
 const snakeFood = new Graphics();
+const button = new Graphics();
 
 // Showing the Text
 const myText = new Text('Game Over', gameOverStyle);
@@ -58,6 +59,7 @@ function updateScreen() {
   snakeHead.clear();
   snakeFood.clear();
   checkFoodColision();
+  realoadButton();
   renderSnakeFood();
   renderSnakeBody(
     snakeHead,
@@ -153,9 +155,30 @@ function checkStopGame() {
   }
 
   if (stopGame) {
-    return app.stage.addChild(myText);
+    return app.stage.addChild(button) && app.stage.addChild(myText);
   }
   return stopGame;
+}
+
+// // button
+function realoadButton() {
+  button
+    .beginFill(0xffff00)
+    .drawRoundedRect(app.view.height / 3, app.view.width / 2, 150, 70)
+    .endFill();
+  button.interactive = true;
+  button.buttonMode = true;
+
+  button.on('click', onClick);
+}
+const font = new Text('Replay', replayText);
+font.x = 210;
+font.y = 230;
+font.anchor.set(0.5);
+button.addChild(font);
+
+function onClick() {
+  window.location.reload();
 }
 
 document.body.addEventListener('keydown', function (e) {
