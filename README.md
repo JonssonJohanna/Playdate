@@ -4,6 +4,8 @@
 
 This is a group assignment, the purpose was to create a game or an experience using JavaScript. The project had to utilize a third-party WebGL framework, we chose to create Snake using Pixi.js.
 
+Link to Netlify: https://snake-game-pixi.netlify.app/
+
 # Installation
 
 Add the installation instructions.
