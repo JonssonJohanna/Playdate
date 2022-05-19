@@ -12,3 +12,9 @@ export const gameOverStyle = new PIXI.TextStyle({
   dropShadowBlur: 2,
   dropShadowColor: '#000000',
 });
+
+export const replayText = new PIXI.TextStyle({
+  fontFamily: 'Arial',
+  fontSize: 30,
+  fill: '#2a3c2a',
+});
