@@ -28,7 +28,6 @@ const snakeFood = new Graphics();
 // Showing the Text
 const myText = new Text('Game Over', gameOverStyle);
 myText.anchor.set(-0.3, -1.2);
-// app.stage.addChild(myText);
 
 // Creating grid
 let speed = 3;
@@ -42,6 +41,7 @@ let speedY = 0;
 
 let snakeFoodX = 5;
 let snakeFoodY = 5;
+let score = 0;
 
 // Snake length
 const snakeElements = [];
@@ -49,13 +49,13 @@ let snakeLength = 1;
 
 //Game Loop
 function updateScreen() {
-  clearScreen();
   changeRectanglePosition();
-  const gameOver = gameOverText();
+  const gameOver = checkStopGame();
   if (gameOver) {
     return;
   }
-  snakeHead.clear(); // clears the screen when the snake moves across the screen
+  clearScreen();
+  snakeHead.clear();
   snakeFood.clear();
   checkFoodColision();
   renderSnakeFood();
@@ -71,7 +71,7 @@ function updateScreen() {
   );
   setTimeout(updateScreen, 1000 / speed);
 }
-//
+
 function clearScreen() {
   gameBoard
     .beginFill(0x2a3c2a)
@@ -79,7 +79,6 @@ function clearScreen() {
     .endFill();
 
   app.stage.addChild(gameBoard);
-  // gameBoard.addChild(myText);
 }
 
 function renderSnakeFood() {
@@ -106,8 +105,9 @@ function checkFoodColision() {
     snakeFoodX = Math.floor(Math.random() * rectanglesCount);
     snakeFoodY = Math.floor(Math.random() * rectanglesCount);
     snakeLength++;
-
-    //eating audio when check for collision
+    score++;
+    speed += 0.25;
+    console.log(score);
     eatingSound.play();
     setTimeout(function () {
       eatingSound.play();
@@ -120,8 +120,13 @@ function checkFoodColision() {
   }
 }
 
-function gameOverText() {
+function checkStopGame() {
   let stopGame = false;
+
+  if (speedY === 0 && speedX === 0) {
+    return false;
+  }
+
   if (rectangleX === rectanglesCount) {
     stopGame = true;
     gameOverSound.play();
@@ -138,9 +143,19 @@ function gameOverText() {
     stopGame = true;
     gameOverSound.play();
   }
+  for (let i = 0; i < snakeElements.length; i++) {
+    let element = snakeElements[i];
+    if (element.x === rectangleX && element.y === rectangleY) {
+      stopGame = true;
+      gameOverSound.play();
+      break;
+    }
+  }
+
   if (stopGame) {
     return app.stage.addChild(myText);
   }
+  return stopGame;
 }
 
 document.body.addEventListener('keydown', function (e) {
