@@ -28,7 +28,7 @@ const button = new Graphics();
 
 // Showing the Text
 const myText = new Text('Game Over', gameOverStyle);
-myText.anchor.set(-0.3, -1.2);
+myText.anchor.set(-0.4, -1.2);
 
 // Creating grid
 let speed = 3;
@@ -160,26 +160,27 @@ function checkStopGame() {
   }
   return stopGame;
 }
+
 function showScore() {
   const scoreText = new Text(`Score ${score}`, scoreStyle);
   scoreText.anchor.set(-0.2, -0.2);
   app.stage.addChild(scoreText);
 }
 
-// // button
+// Replay Button
 function realoadButton() {
   button
     .beginFill(0xffff00)
-    .drawRoundedRect(app.view.height / 3, app.view.width / 2, 150, 70)
+    .drawRoundedRect(app.view.height / 3, app.view.width / 2, 130, 50)
+    .lineStyle(2, 0xffffff)
     .endFill();
   button.interactive = true;
   button.buttonMode = true;
-
   button.on('click', onClick);
 }
 const font = new Text('Replay', replayText);
-font.x = 210;
-font.y = 230;
+font.x = 200;
+font.y = 225;
 font.anchor.set(0.5);
 button.addChild(font);
 
