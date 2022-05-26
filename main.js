@@ -4,7 +4,40 @@ import { Snake } from './source/snake.js';
 import { gameOverStyle, replayText, scoreStyle } from './source/style.js';
 import { eatingSound, gameOverSound } from './source/audio.js';
 import { renderSnakeBody } from './source/functions';
-// import { rectangleX, rectangleY } from './source/variables';
+import { initializeApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getDatabase, onValue, ref, set, push } from 'firebase/database';
+const API_KEY = import.meta.env.VITE_API_KEY;
+const AUTH_DOMAIN = import.meta.env.VITE_AUTH_DOMAIN;
+const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
+const STORAGE_BUCKET = import.meta.env.VITE_STORAGE_BUCKET;
+const SENDER_ID = import.meta.env.VITE_SENDER_ID;
+const APP_ID = import.meta.env.VITE_APP_ID;
+const DATABASE_URL = import.meta.env.VITE_DATABASE_URL;
+
+const firebaseConfig = {
+  apiKey: { API_KEY },
+  authDomain: { AUTH_DOMAIN },
+  projectId: { PROJECT_ID },
+  storageBucket: { STORAGE_BUCKET },
+  messagingSenderId: { SENDER_ID },
+  appId: { APP_ID },
+  databaseURL: `${DATABASE_URL}`,
+};
+
+// Initialize Firebase
+const firebaseApp = initializeApp(firebaseConfig);
+
+function writeUserData(name, score) {
+  const db = getDatabase();
+  const postListRef = ref(db, 'scores/');
+
+  const newPostRef = push(postListRef);
+  set(newPostRef, {
+    username: name,
+    score: score,
+  });
+}
 
 const { Application, Graphics, Text } = PIXI;
 
@@ -28,7 +61,7 @@ const button = new Graphics();
 
 // Showing the Text
 const myText = new Text('Game Over', gameOverStyle);
-myText.anchor.set(-0.3, -1.2);
+myText.anchor.set(-0.4, -1.2);
 
 // Creating grid
 let speed = 3;
@@ -133,24 +166,34 @@ function checkStopGame() {
   if (rectangleX === rectanglesCount) {
     stopGame = true;
     gameOverSound.play();
+    writeUserData('Patrik', score);
+    console.log(firebaseApp);
   }
   if (rectangleX < 0) {
     stopGame = true;
     gameOverSound.play();
+    writeUserData('Patrik', score);
+    console.log(firebaseApp);
   }
   if (rectangleY === rectanglesCount) {
     stopGame = true;
     gameOverSound.play();
+    writeUserData('Patrik', score);
+    console.log(firebaseApp);
   }
   if (rectangleY < 0) {
     stopGame = true;
     gameOverSound.play();
+    writeUserData('Patrik', score);
+    console.log(firebaseApp);
   }
   for (let i = 0; i < snakeElements.length; i++) {
     let element = snakeElements[i];
     if (element.x === rectangleX && element.y === rectangleY) {
       stopGame = true;
       gameOverSound.play();
+      writeUserData('Patrik', score);
+      console.log(firebaseApp);
       break;
     }
   }
@@ -160,26 +203,27 @@ function checkStopGame() {
   }
   return stopGame;
 }
+
 function showScore() {
   const scoreText = new Text(`Score ${score}`, scoreStyle);
   scoreText.anchor.set(-0.2, -0.2);
   app.stage.addChild(scoreText);
 }
 
-// // button
+// Replay Button
 function realoadButton() {
   button
     .beginFill(0xffff00)
-    .drawRoundedRect(app.view.height / 3, app.view.width / 2, 150, 70)
+    .drawRoundedRect(app.view.height / 3, app.view.width / 2, 130, 50)
+    .lineStyle(2, 0xffffff)
     .endFill();
   button.interactive = true;
   button.buttonMode = true;
-
   button.on('click', onClick);
 }
 const font = new Text('Replay', replayText);
-font.x = 210;
-font.y = 230;
+font.x = 200;
+font.y = 225;
 font.anchor.set(0.5);
 button.addChild(font);
 

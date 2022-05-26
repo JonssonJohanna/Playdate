@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@pixi/graphics-extras": "^6.3.2",
+    "firebase": "^9.8.1",
     "howler": "^2.2.3",
     "pixi.js": "^6.3.2"
   }
