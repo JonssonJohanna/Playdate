@@ -6,7 +6,7 @@ import { eatingSound, gameOverSound } from './source/audio.js';
 import { renderSnakeBody } from './source/functions';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getDatabase, onValue, ref, set, push } from 'firebase/database';
+import { getDatabase, ref, set, push } from 'firebase/database';
 const API_KEY = import.meta.env.VITE_API_KEY;
 const AUTH_DOMAIN = import.meta.env.VITE_AUTH_DOMAIN;
 const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
@@ -22,7 +22,8 @@ const firebaseConfig = {
   storageBucket: { STORAGE_BUCKET },
   messagingSenderId: { SENDER_ID },
   appId: { APP_ID },
-  databaseURL: `${DATABASE_URL}`,
+  databaseURL:
+    'https://high-score-220bc-default-rtdb.europe-west1.firebasedatabase.app',
 };
 
 // Initialize Firebase
@@ -76,6 +77,7 @@ let speedY = 0;
 let snakeFoodX = 5;
 let snakeFoodY = 5;
 let score = 0;
+let inputValue;
 
 // Snake length
 const snakeElements = [];
@@ -83,6 +85,7 @@ let snakeLength = 1;
 
 //Game Loop
 function updateScreen() {
+  // inputUsername();
   changeRectanglePosition();
   const gameOver = checkStopGame();
   if (gameOver) {
@@ -116,6 +119,30 @@ function clearScreen() {
 
   app.stage.addChild(gameBoard);
 }
+//input + button => DB
+var userNameInput = document.createElement('INPUT');
+userNameInput.setAttribute('type', 'text');
+userNameInput.setAttribute('value', 'name');
+// userNameInput.style.background = 'pink';
+userNameInput.style.position = 'absolute';
+userNameInput.style.top = '75%';
+userNameInput.style.left = '37%';
+
+var playButton = document.createElement('button');
+playButton.innerHTML = 'Send';
+playButton.style.position = 'absolute';
+playButton.style.top = '79%';
+playButton.style.left = '37%';
+document.body.appendChild(playButton);
+document.body.appendChild(userNameInput);
+
+//connecting inputfield with button
+function inputUsername() {
+  inputValue = userNameInput.value;
+  console.log(inputValue);
+  createElement.div.innerHTML = 'Hello World';
+}
+playButton.addEventListener('click', inputUsername);
 
 function renderSnakeFood() {
   snakeFood
@@ -166,25 +193,25 @@ function checkStopGame() {
   if (rectangleX === rectanglesCount) {
     stopGame = true;
     gameOverSound.play();
-    writeUserData('Patrik', score);
+    writeUserData(inputValue, score);
     console.log(firebaseApp);
   }
   if (rectangleX < 0) {
     stopGame = true;
     gameOverSound.play();
-    writeUserData('Patrik', score);
+    writeUserData(inputValue, score);
     console.log(firebaseApp);
   }
   if (rectangleY === rectanglesCount) {
     stopGame = true;
     gameOverSound.play();
-    writeUserData('Patrik', score);
+    writeUserData(inputValue, score);
     console.log(firebaseApp);
   }
   if (rectangleY < 0) {
     stopGame = true;
     gameOverSound.play();
-    writeUserData('Patrik', score);
+    writeUserData(inputValue, score);
     console.log(firebaseApp);
   }
   for (let i = 0; i < snakeElements.length; i++) {
@@ -192,7 +219,7 @@ function checkStopGame() {
     if (element.x === rectangleX && element.y === rectangleY) {
       stopGame = true;
       gameOverSound.play();
-      writeUserData('Patrik', score);
+      writeUserData(inputValue, score);
       console.log(firebaseApp);
       break;
     }

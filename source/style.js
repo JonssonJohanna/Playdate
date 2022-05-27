@@ -20,7 +20,7 @@ export const replayText = new PIXI.TextStyle({
 });
 
 export const scoreStyle = new PIXI.TextStyle({
-  fontFamily: 'Montserrat',
-  fontSize: 10,
+  fontFamily: 'Arial',
+  fontSize: 15,
   fill: 'white',
 });
