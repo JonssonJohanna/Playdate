@@ -28,6 +28,7 @@ canvas {
   left: 75%;
   font-family: arial;
   color: #2a3c2a;
+  /* opacity: 1; */
 }
 
 span {
@@ -54,8 +55,8 @@ section {
   grid-template-rows: repeat(2, 1fr);
   place-items: center;
   grid-gap: 1px;
-  margin: 0;
-  right: 100%;
+  margin-top: 280px;
+  margin-right: 10px;
   z-index: 1;
 }
 
@@ -77,4 +78,12 @@ section > span:nth-child(3) {
 section > span:nth-child(4) {
   grid-column: 3;
   grid-row: 2;
+}
+
+.provide-name {
+  color: #2a3c2a;
+}
+
+.arrowKeys h2 {
+  font-size: 15px;
 }

@@ -3,10 +3,19 @@ import * as PIXI from 'pixi.js';
 import { Snake } from './source/snake.js';
 import { gameOverStyle, replayText, scoreStyle } from './source/style.js';
 import { eatingSound, gameOverSound } from './source/audio.js';
-import { renderSnakeBody } from './source/functions';
+import { renderSnakeBody, fillYourName } from './source/functions';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getDatabase, ref, set, push } from 'firebase/database';
+import {
+  getDatabase,
+  onValue,
+  ref,
+  set,
+  push,
+  query,
+  limitToLast,
+  orderByChild,
+} from 'firebase/database';
 const API_KEY = import.meta.env.VITE_API_KEY;
 const AUTH_DOMAIN = import.meta.env.VITE_AUTH_DOMAIN;
 const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
@@ -39,6 +48,38 @@ function writeUserData(name, score) {
     score: score,
   });
 }
+
+const db = getDatabase();
+const userScores = query(
+  ref(db, 'scores/'),
+  orderByChild('score'),
+  limitToLast(1)
+);
+
+onValue(
+  userScores,
+  (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      // const childKey = childSnapshot.key;
+      let highScore = childSnapshot.val().score;
+      let userName = childSnapshot.val().username;
+      // console.log(userName, highScore);
+      let div = document.createElement('div');
+      div.innerHTML = `
+      <p>Name: ${userName}</p>
+      <p>High score: ${highScore}</p>
+      `;
+      div.style.position = 'absolute';
+      div.style.top = '2%';
+      div.style.right = '3%';
+      div.style.color = '#2a3c2a';
+      document.body.appendChild(div);
+    });
+  },
+  {
+    onlyOnce: true,
+  }
+);
 
 const { Application, Graphics, Text } = PIXI;
 
@@ -83,9 +124,10 @@ let inputValue;
 const snakeElements = [];
 let snakeLength = 1;
 
+fillYourName();
+
 //Game Loop
 function updateScreen() {
-  // inputUsername();
   changeRectanglePosition();
   const gameOver = checkStopGame();
   if (gameOver) {
@@ -118,30 +160,42 @@ function clearScreen() {
     .endFill();
 
   app.stage.addChild(gameBoard);
+  // gameBoard.clear();
 }
 //input + button => DB
 var userNameInput = document.createElement('INPUT');
 userNameInput.setAttribute('type', 'text');
-userNameInput.setAttribute('value', 'name');
-// userNameInput.style.background = 'pink';
+userNameInput.setAttribute('value', '');
+userNameInput.style.background = '#2a3c2a';
+userNameInput.style.color = 'white';
 userNameInput.style.position = 'absolute';
-userNameInput.style.top = '75%';
-userNameInput.style.left = '37%';
+userNameInput.style.top = '80%';
+userNameInput.style.left = '50%';
+userNameInput.style.transform = 'translate(-50%, -50%)';
 
 var playButton = document.createElement('button');
-playButton.innerHTML = 'Send';
+playButton.innerHTML = 'Submit';
 playButton.style.position = 'absolute';
-playButton.style.top = '79%';
-playButton.style.left = '37%';
+playButton.style.top = '85%';
+playButton.style.left = '50%';
+playButton.style.transform = 'translate(-50%, -50%)';
 document.body.appendChild(playButton);
 document.body.appendChild(userNameInput);
 
+const provideNameText = document.querySelector('.provide-name-text');
 //connecting inputfield with button
 function inputUsername() {
-  inputValue = userNameInput.value;
-  console.log(inputValue);
-  createElement.div.innerHTML = 'Hello World';
+  if (!userNameInput.value == '') {
+    inputValue = userNameInput.value;
+    updateScreen();
+    console.log(inputValue);
+    if (provideNameText) {
+      provideNameText.innerHTML = `Enjoy the Game, ${inputValue}!`;
+      provideNameText.classList.add('provide-name');
+    }
+  }
 }
+
 playButton.addEventListener('click', inputUsername);
 
 function renderSnakeFood() {
@@ -170,7 +224,7 @@ function checkFoodColision() {
     snakeLength++;
     score++;
     speed += 0.25;
-    console.log(score);
+    // console.log(score);
     eatingSound.play();
     setTimeout(function () {
       eatingSound.play();
@@ -189,30 +243,25 @@ function checkStopGame() {
   if (speedY === 0 && speedX === 0) {
     return false;
   }
-
   if (rectangleX === rectanglesCount) {
     stopGame = true;
     gameOverSound.play();
     writeUserData(inputValue, score);
-    console.log(firebaseApp);
   }
   if (rectangleX < 0) {
     stopGame = true;
     gameOverSound.play();
     writeUserData(inputValue, score);
-    console.log(firebaseApp);
   }
   if (rectangleY === rectanglesCount) {
     stopGame = true;
     gameOverSound.play();
     writeUserData(inputValue, score);
-    console.log(firebaseApp);
   }
   if (rectangleY < 0) {
     stopGame = true;
     gameOverSound.play();
     writeUserData(inputValue, score);
-    console.log(firebaseApp);
   }
   for (let i = 0; i < snakeElements.length; i++) {
     let element = snakeElements[i];
@@ -220,11 +269,9 @@ function checkStopGame() {
       stopGame = true;
       gameOverSound.play();
       writeUserData(inputValue, score);
-      console.log(firebaseApp);
       break;
     }
   }
-
   if (stopGame) {
     return app.stage.addChild(button) && app.stage.addChild(myText);
   }
@@ -280,5 +327,3 @@ document.body.addEventListener('keydown', function (e) {
     speedX = 1;
   }
 });
-
-updateScreen();
