@@ -23,12 +23,11 @@ canvas {
 }
 
 .arrowKeys {
-  top: 300px;
+  top: 43%;
   position: absolute;
-  left: 75%;
+  left: 45%;
   font-family: arial;
   color: #2a3c2a;
-  /* opacity: 1; */
 }
 
 span {
@@ -86,4 +85,10 @@ section > span:nth-child(4) {
 
 .arrowKeys h2 {
   font-size: 15px;
+}
+
+@media screen and (max-width: 480px) {
+  .arrowKeys {
+    display: none;
+  }
 }

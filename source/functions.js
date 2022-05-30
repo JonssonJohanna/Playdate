@@ -45,9 +45,9 @@ export function fillYourName() {
   let div = document.createElement('div');
   div.innerHTML = `<p class="provide-name-text">To start provide your name!</p>`;
   div.style.position = 'absolute';
-  div.style.top = '75%';
+  div.style.top = '55%';
   div.style.left = '50%';
   div.style.transform = 'translate(-50%, -50%)';
-  div.style.color = 'red';
+  div.style.color = 'white';
   document.body.appendChild(div);
 }
