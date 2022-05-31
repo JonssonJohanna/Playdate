@@ -1,4 +1,3 @@
-import * as PIXI from 'pixi.js';
 import { Snake } from './snake.js';
 
 export function renderSnakeBody(

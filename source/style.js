@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-// Text Object "Game over"
+
 export const gameOverStyle = new PIXI.TextStyle({
   fontFamily: 'Montserrat',
   fontSize: 48,

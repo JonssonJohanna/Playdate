@@ -1,11 +1,9 @@
 import './style.css';
 import * as PIXI from 'pixi.js';
-import { Snake } from './source/snake.js';
 import { gameOverStyle, replayText, scoreStyle } from './source/style.js';
 import { eatingSound, gameOverSound } from './source/audio.js';
 import { renderSnakeBody, fillYourName } from './source/functions';
 import { initializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
   getDatabase,
   onValue,
@@ -60,10 +58,8 @@ onValue(
   userScores,
   (snapshot) => {
     snapshot.forEach((childSnapshot) => {
-      // const childKey = childSnapshot.key;
       let highScore = childSnapshot.val().score;
       let userName = childSnapshot.val().username;
-      // console.log(userName, highScore);
       let div = document.createElement('div');
       div.innerHTML = `
       <p>Name: ${userName}</p>
@@ -91,17 +87,13 @@ const app = new Application({
 });
 
 app.renderer.backgroundColor = 0x2a3c2a;
-
 document.body.appendChild(app.view);
-// console.log(app.view.width, app.view.height);
 
-//This is wehere we create out objects
 const gameBoard = new Graphics();
 const snakeHead = new Graphics();
 const snakeFood = new Graphics();
 const button = new Graphics();
 
-// Showing the Text
 const myText = new Text('Game Over', gameOverStyle);
 myText.anchor.set(-0.4, -1.2);
 
@@ -160,13 +152,10 @@ function clearScreen() {
     .endFill();
 
   app.stage.addChild(gameBoard);
-  // gameBoard.clear();
 }
-//input + button => DB
 var userNameInput = document.createElement('INPUT');
 userNameInput.setAttribute('type', 'text');
 userNameInput.setAttribute('value', '');
-// userNameInput.style.background = '#2a3c2a';
 userNameInput.style.color = '#2a3c2a';
 userNameInput.style.position = 'absolute';
 userNameInput.style.top = '60%';
@@ -183,7 +172,7 @@ document.body.appendChild(playButton);
 document.body.appendChild(userNameInput);
 
 const provideNameText = document.querySelector('.provide-name-text');
-//connecting inputfield with button
+
 function inputUsername() {
   if (!userNameInput.value == '') {
     inputValue = userNameInput.value;
@@ -229,7 +218,6 @@ function checkFoodColision() {
     snakeLength++;
     score++;
     speed += 0.25;
-    // console.log(score);
     eatingSound.play();
     setTimeout(function () {
       eatingSound.play();
@@ -289,7 +277,6 @@ function showScore() {
   app.stage.addChild(scoreText);
 }
 
-// Replay Button
 function realoadButton() {
   button
     .beginFill(0xffff00)
