@@ -1,4 +1,4 @@
-<img src="https://media.giphy.com/media/TFMoOxjnAAMbm/giphy.gif" alt="Kid playing game on phone.">
+<img src="https://tenor.com/bpBgK.gif" alt="Snake game.">
 
 # Playdate - Snake
 
@@ -8,24 +8,28 @@ Link to Netlify:[Snake Game](https://snake-game-pixi.netlify.app/)
 
 # Installation
 
-Clone the repository, `run npm install`and `npm run dev`.
+Create account in [Firebase](https://firebase.google.com/)
+Create .env file and paste your database credentials. Use .env.example file as reference.
+Clone the repository, `run npm install` and `npm run dev`.
 
 # Changelog
 
--   [#1 - Setup, installed PIXI.js and VITE](https://github.com/JonssonJohanna/Playdate/pull/8)
--   [#2 - Test moving image around screen](https://github.com/JonssonJohanna/Playdate/pull/9)
--   [#3 - Added snake food and Game Over text](https://github.com/JonssonJohanna/Playdate/pull/10)
--   [#4 - Snake Game draft 1](https://github.com/JonssonJohanna/Playdate/pull/11)
--   [#5 - Added Sound and new file structure](https://github.com/JonssonJohanna/Playdate/pull/12)
--   [#6 - Reconstructing PIXI](https://github.com/JonssonJohanna/Playdate/pull/13)
--   [#7 - Added canvas walls and game over text. Edited the file structure.](https://github.com/JonssonJohanna/Playdate/pull/14)
--   [#8 - Added a favicon and fixed snake body collision.](https://github.com/JonssonJohanna/Playdate/pull/15)
--   [#9 - Added button that is only displayed when 'game over'.](https://github.com/JonssonJohanna/Playdate/pull/16)
--   [#10 - Added score feature and some text in README.md.](https://github.com/JonssonJohanna/Playdate/pull/17)
--   [#11 - Test to see if audio works on Netlify. Added public folder.](https://github.com/JonssonJohanna/Playdate/pull/18)
--   [#12 - Added database.](https://github.com/JonssonJohanna/Playdate/pull/19)
--   [#13 - Test with Database to see if it works on Netlify.](https://github.com/JonssonJohanna/Playdate/pull/20)
--   [#14 - Display high score from firebase.](https://github.com/JonssonJohanna/Playdate/pull/21)
+-   [#1-7 - Performed tests](#)
+-   [#8 - Setup, installed PIXI.js and VITE](https://github.com/JonssonJohanna/Playdate/pull/8)
+-   [#9 - Test moving image around screen](https://github.com/JonssonJohanna/Playdate/pull/9)
+-   [#10 - Added snake food and Game Over text](https://github.com/JonssonJohanna/Playdate/pull/10)
+-   [#11 - Snake Game draft 1](https://github.com/JonssonJohanna/Playdate/pull/11)
+-   [#12 - Added Sound and new file structure](https://github.com/JonssonJohanna/Playdate/pull/12)
+-   [#13 - Reconstructing PIXI](https://github.com/JonssonJohanna/Playdate/pull/13)
+-   [#14 - Added canvas walls and game over text. Edited the file structure.](https://github.com/JonssonJohanna/Playdate/pull/14)
+-   [#15 - Added a favicon and fixed snake body collision.](https://github.com/JonssonJohanna/Playdate/pull/15)
+-   [#16 - Added button that is only displayed when 'game over'.](https://github.com/JonssonJohanna/Playdate/pull/16)
+-   [#17 - Added score feature and some text in README.md.](https://github.com/JonssonJohanna/Playdate/pull/17)
+-   [#18 - Test to see if audio works on Netlify. Added public folder.](https://github.com/JonssonJohanna/Playdate/pull/18)
+-   [#19 - Added database.](https://github.com/JonssonJohanna/Playdate/pull/19)
+-   [#20 - Test with Database to see if it works on Netlify.](https://github.com/JonssonJohanna/Playdate/pull/20)
+-   [#21 - Display high score from firebase.](https://github.com/JonssonJohanna/Playdate/pull/21)
+-   [#22 - Display high score from firebase.](https://github.com/JonssonJohanna/Playdate/pull/22)
 
 # Code Review
 
