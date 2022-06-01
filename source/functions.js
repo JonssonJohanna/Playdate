@@ -44,7 +44,7 @@ export function fillYourName() {
   let div = document.createElement('div');
   div.innerHTML = `<p class="provide-name-text">To start provide your name!</p>`;
   div.style.position = 'absolute';
-  div.style.top = '55%';
+  div.style.top = '45%';
   div.style.left = '50%';
   div.style.fontWeight = 'bold';
   div.style.fontFamily = 'Arial';
