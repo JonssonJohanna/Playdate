@@ -46,6 +46,8 @@ export function fillYourName() {
   div.style.position = 'absolute';
   div.style.top = '55%';
   div.style.left = '50%';
+  div.style.fontWeight = 'bold';
+  div.style.fontFamily = 'Arial';
   div.style.transform = 'translate(-50%, -50%)';
   div.style.color = 'white';
   document.body.appendChild(div);
