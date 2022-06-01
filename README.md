@@ -1,4 +1,4 @@
-<img src="https://tenor.com/view/snake-gif-18455452" alt="Snake game.">
+<img src="https://media.giphy.com/media/Q933iQnuEYGQw/giphy.gif" alt="Snake game.">
 
 # Playdate - Snake
 
