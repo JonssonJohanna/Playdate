@@ -69,6 +69,8 @@ onValue(
       div.style.top = '2%';
       div.style.right = '3%';
       div.style.color = '#2a3c2a';
+      div.style.fontWeight = 'bold';
+      div.style.fontFamily = 'Arial';
       document.body.appendChild(div);
     });
   },
@@ -128,8 +130,8 @@ function updateScreen() {
   clearScreen();
   snakeHead.clear();
   snakeFood.clear();
-  checkFoodColision();
-  realoadButton();
+  checkFoodCollision();
+  reloadButton();
   renderSnakeFood();
   renderSnakeBody(
     snakeHead,
@@ -211,7 +213,7 @@ function changeRectanglePosition() {
   rectangleY = rectangleY + speedY;
 }
 
-function checkFoodColision() {
+function checkFoodCollision() {
   if (snakeFoodX === rectangleX && snakeFoodY == rectangleY) {
     snakeFoodX = Math.floor(Math.random() * rectanglesCount);
     snakeFoodY = Math.floor(Math.random() * rectanglesCount);
@@ -277,7 +279,7 @@ function showScore() {
   app.stage.addChild(scoreText);
 }
 
-function realoadButton() {
+function reloadButton() {
   button
     .beginFill(0xffff00)
     .drawRoundedRect(app.view.height / 3, app.view.width / 2, 130, 50)

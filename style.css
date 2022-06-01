@@ -23,14 +23,13 @@ canvas {
 }
 
 .arrowKeys {
-  top: 43%;
+  top: 40%;
   position: absolute;
   font-family: arial;
-  color: #2a3c2a;
 }
 
 span {
-  outline: #cccccc;
+  /* outline: #cccccc; */
   font-size: 18px;
   display: flex;
   justify-content: center;
@@ -40,10 +39,10 @@ span {
   width: 48px;
   height: 45px;
   border-radius: 5px;
-  background-color: rgb(204, 200, 200);
-  color: #2a3c2a;
-  border-top: 1px solid outline;
-  box-shadow: 0px 3px 0px 2px outline;
+  background-color: #2a3c2a;
+  color: white;
+  border-top: 1px solid;
+  box-shadow: 0px 3px 0px 2px;
   cursor: pointer;
 }
 
