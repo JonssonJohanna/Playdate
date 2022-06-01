@@ -160,14 +160,14 @@ userNameInput.setAttribute('type', 'text');
 userNameInput.setAttribute('value', '');
 userNameInput.style.color = '#2a3c2a';
 userNameInput.style.position = 'absolute';
-userNameInput.style.top = '60%';
+userNameInput.style.top = '50%';
 userNameInput.style.left = '50%';
 userNameInput.style.transform = 'translate(-50%, -50%)';
 
 var playButton = document.createElement('button');
 playButton.innerHTML = 'Submit';
 playButton.style.position = 'absolute';
-playButton.style.top = '65%';
+playButton.style.top = '55%';
 playButton.style.left = '50%';
 playButton.style.transform = 'translate(-50%, -50%)';
 document.body.appendChild(playButton);
@@ -179,10 +179,9 @@ function inputUsername() {
   if (!userNameInput.value == '') {
     inputValue = userNameInput.value;
     updateScreen();
-    console.log(inputValue);
     if (provideNameText) {
       provideNameText.innerHTML = `Enjoy the Game, ${inputValue}!`;
-      provideNameText.style.top = '155px';
+      provideNameText.style.top = '215px';
       provideNameText.style.position = 'relative';
       provideNameText.style.color = 'red';
       provideNameText.classList.add('provide-name');
