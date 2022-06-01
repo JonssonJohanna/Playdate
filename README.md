@@ -33,7 +33,16 @@ Clone the repository, `run npm install` and `npm run dev`.
 
 # Code Review
 
-1. `example.js:10-15` - Remember to think about X and this could be refactored using the amazing Y function.
+1. main.js:296 - You might want to change onClick() to something that explains the function better.
+2. General - All your functions are not in your function file.
+3. General - Would be nice with some more comments to easier understand the code.
+4. main.js - Your database configuration code could be in a separate file.
+5. Main.js:280 + 214 - Make sure to check your spelling. (realoadButton + checkFoodColision)
+6. General - You could split the code into different files for easier understanding. (For example your controls in one file etc.)
+7. Main.js:57 - You are mixing arrow functions with other functions. Try to be consistent.
+8. Main.js:64 + functions.js:45 - instead of using innerHTML you could use pixi text elements!
+9. license file - Don't forget to add a LICENSE.
+10. General - Nice game, well done! We like the instructive arrows, it’s very good for the accessibility! :)
 
 # Testers
 
